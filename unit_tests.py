@@ -48,15 +48,16 @@ def generate_test_cases():
 
     # Test different sizes
     sizes = [
-        (1, 128),  # Single sequence
-        (8, 512),  # Batch of sequences
+        (1, 2048),  # Single sequence
+        (8, 2048),  # Batch of sequences
         (2, 16, 1024),  # Multiple batches
         (4, 32, 2048),  # Larger hidden size
         (16, 8, 4096),  # Even larger hidden size
+        (4, 8, 8192),  # Even larger hidden size
     ]
 
     # Test different dtypes
-    dtypes = [torch.float32, torch.float16]
+    dtypes = [torch.float32, torch.float16, torch.bfloat16]
 
     # Test different epsilon values
     eps_values = [1e-6, 1e-5, 1e-4]
@@ -130,7 +131,7 @@ class TestRMSNorm:
         max_rel_error = rel_error.max().item()
 
         # Define tolerance based on dtype
-        rtol = 1e-1 if test_case["dtype"] == torch.float16 else 1e-5
+        rtol = 1e-5 if test_case["dtype"] == torch.float32 else 1e-1
 
         assert max_rel_error < rtol, (
             f"Forward relative error {max_rel_error} exceeds tolerance {rtol} "
