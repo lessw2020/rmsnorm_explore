@@ -54,6 +54,7 @@ def generate_test_cases():
         (4, 32, 2048),  # Larger hidden size
         (16, 8, 4096),  # Even larger hidden size
         (4, 8, 8192),  # Even larger hidden size
+        (4, 8, 8192 * 2),  # Even larger hidden size
     ]
 
     # Test different dtypes

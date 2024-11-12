@@ -89,16 +89,16 @@ def _rms_norm_fwd_kernel(
     w = tl.load(W + cols, mask=mask, other=0.0).to(tl.float32)
 
     # Compute mean and variance
-    xbar = tl.where(cols < N, x, 0.0)
-    var = tl.sum(xbar * xbar, axis=0) / N
+    # xbar = tl.where(cols < N, x, 0.0)
+    var = tl.sum(x * x, axis=0) / N
     rstd = 1 / tl.sqrt(var + eps)
 
     # Store the reciprocal standard deviation
     tl.store(Rstd + row, rstd)
 
     # Normalize and apply linear transformation
-    x_hat = x * rstd
-    y = x_hat * w
+    # x_hat =
+    y = x * rstd * w
 
     # Write output
     tl.store(Y + row * stride_y + cols, y, mask=mask)
