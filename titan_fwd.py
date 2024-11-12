@@ -207,11 +207,11 @@ class TritonFusedRMSNorm(torch.autograd.Function):
             block_N,
         )
 
-        ctx.eps = eps
-        ctx.save_for_backward(x, weight, rstd)
-        ctx.x_shape_start = x_shape_start
+        # ctx.eps = eps
+        # ctx.save_for_backward(x, weight, rstd)
+        # ctx.x_shape_start = x_shape_start
 
-        y = y.reshape(x_shape_start)
+        y = y.view(x_shape_start)
         return y
 
     """@partial(
